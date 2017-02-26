@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.killpredictions.killexpectations">
+
+    <application
+        android:label="40k Kill Oracle"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".KillTroops" />
+        <activity android:name=".KillVehicle" />
+        <activity android:name=".Graph" />
+        <activity android:name=".GraphVeh"></activity>
+    </application>
+
+</manifest>

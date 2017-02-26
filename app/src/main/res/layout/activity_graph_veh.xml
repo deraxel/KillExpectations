@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_graph_veh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.killpredictions.killexpectations.GraphVeh">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/backButton"
+        android:layout_alignParentBottom="true"
+        android:onClick="goback"
+        android:text="@string/go_back"
+        android:textStyle="bold"
+        android:textColor="@color/buttontextColor"
+        android:background="@color/buttonColor"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="20sp"
+        android:textAllCaps="true"/>
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/backButton"
+        android:layout_alignParentTop="true"
+        android:id="@+id/theGraph"/>
+
+
+</RelativeLayout>

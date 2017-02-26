@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.killpredictions.killexpectations.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="0sp"
+        android:layout_height="0sp"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/center_line"/>
+
+    <Button
+        android:text="@string/kills_vs_troops"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/troops"
+        android:layout_alignBottom="@id/center_line"
+        android:layout_above="@id/center_line"
+        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:background="@color/gototro"
+        android:textColor="@color/gototext" />
+
+    <Button
+        android:text="@string/kills_vs_vehicles"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/vehi"
+        android:layout_alignTop="@id/center_line"
+        android:layout_below="@id/center_line"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:background="@color/gotoveh"
+        android:textColor="@color/gototext" />
+
+</RelativeLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#9e0008</color><!--colors for the overall app-->
+    <color name="colorPrimaryDark">#9e0008</color>
+    <color name="colorAccent">#471f03</color>
+    <color name="backgroundColor">#000000</color>
+
+    <color name="buttonColor">#777777</color><!--colors for the buttons-->
+    <color name="buttontextColor">#000000</color>
+    <color name="arrowbuttons">#999999</color>
+
+    <color name="exptextColor">#000000</color><!--colors for the expected kills-->
+    <color name="expbackgroundColor">#e52828</color>
+
+    <color name="explobackground">#444444</color><!--colors for the expected explodes-->
+    <color name="explotext">#ffffff</color>
+
+    <color name="defcolors">#444444</color><!--colors for the presets-->
+    <color name="offcolors">#e52828</color>
+    <color name="presettxtcolors">#ffffff</color>
+
+    <color name="gotoveh">#471f03</color><!--colors for the gotos-->
+    <color name="gototro">#7fa87f</color>
+    <color name="gototext">#000000</color>
+
+    <color name="attrtext">#0bdf00</color><!--color for the text attribute-->
+
+    <color name="chkbx">#0bdf00</color><!--color for the check boxes-->
+
+</resources>
+
