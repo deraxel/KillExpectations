@@ -20,8 +20,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class GraphVeh extends AppCompatActivity {
-    LineGraphSeries<DataPoint> series;
-    LineGraphSeries<DataPoint> series2;
+    LineGraphSeries<DataPoint> series, series2, series3, series4;
     static final int READ_BLOCK_SIZE = 100;
     String BS, str, ap, armV, is, rof;
     boolean rending, melta, Pref_Enemy, ordinance, twin_linked;
@@ -39,7 +38,7 @@ public class GraphVeh extends AppCompatActivity {
         series.appendData(new DataPoint(0,1),true,getROF()*10);
         y=1.0;
         for(int x=1;x<=getROF();x=x+1){
-            y=y-getChanceofOccurance(getROF(),x-1);
+            y=y-getChanceofOccurance(getROF(),x-1,getSingleChance());
             series.appendData(new DataPoint(x,y),true,getROF()*10);
         }
         series.setColor(Color.GREEN);
@@ -49,13 +48,35 @@ public class GraphVeh extends AppCompatActivity {
 
         series2= new LineGraphSeries<DataPoint>();
         for(int x=0;x<=getROF();x=x+1){
-            z=getChanceofOccurance(getROF(),x);
+            z=getChanceofOccurance(getROF(),x,getSingleChance());
             series2.appendData(new DataPoint(x,z),true,getROF()*10);
         }
         series2.setColor(Color.RED);
         series2.setDrawDataPoints(true);
         series2.setDataPointsRadius(7);
         graph.addSeries(series2);
+
+        series3= new LineGraphSeries<DataPoint>();
+        series3.appendData(new DataPoint(0,1),true,getROF()*10);
+        y=1.0;
+        for(int x=1;x<=getROF();x=x+1){
+            y=y-getChanceofOccurance(getROF(),x-1,getSingleExplodeChance());
+            series3.appendData(new DataPoint(x,y),true,getROF()*10);
+        }
+        series3.setColor(Color.rgb(255, 246, 0));
+        series3.setDrawDataPoints(true);
+        series3.setDataPointsRadius(6);
+        graph.addSeries(series3);
+
+        series4= new LineGraphSeries<DataPoint>();
+        for(int x=0;x<=getROF();x=x+1){
+            z=getChanceofOccurance(getROF(),x,getSingleExplodeChance());
+            series4.appendData(new DataPoint(x,z),true,getROF()*10);
+        }
+        series4.setColor(Color.BLUE);
+        series4.setDrawDataPoints(true);
+        series4.setDataPointsRadius(5);
+        graph.addSeries(series4);
 
         // set manual X bounds
         graph.getViewport().setXAxisBoundsManual(true);
@@ -70,6 +91,8 @@ public class GraphVeh extends AppCompatActivity {
         // legend
         series.setTitle("MINIMUM HULL POINT DAMAGE");
         series2.setTitle("EXACT HULL POINT DAMAGE");
+        series3.setTitle("MINIMUM EXPLODES RESULTS");
+        series4.setTitle("EXACT EXPLODES RESULTS");
         graph.getLegendRenderer().setVisible(true);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
         series.setOnDataPointTapListener(new OnDataPointTapListener() {
@@ -108,6 +131,42 @@ public class GraphVeh extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), String.valueOf(percent) + "%" + " chance of " + token[0] + " hull points damage!", Toast.LENGTH_LONG).show();
                 }            }
         });
+        series3.setOnDataPointTapListener(new OnDataPointTapListener() {
+            @Override
+            public void onTap(Series series, DataPointInterface dataPoint) {
+                String item=dataPoint+"";
+                String[] token=item.split("/");
+                token[0]=token[0].replaceAll("\\[","");
+                token[1]=token[1].replaceAll("\\]","");
+                token[0]=token[0].substring(0, token[0].length() - 2);
+                double thing=Double.parseDouble(token[1]);
+                thing=thing*100;
+                int percent=(int) thing;
+                if(token[0].equals("1")){
+                    Toast.makeText(getBaseContext(), String.valueOf(percent) + "%" + " chance of at least " + token[0] + " explode result!", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getBaseContext(), String.valueOf(percent) + "%" + " chance of at least " + token[0] + " explode results!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        series4.setOnDataPointTapListener(new OnDataPointTapListener() {
+            @Override
+            public void onTap(Series series, DataPointInterface dataPoint) {
+                String item=dataPoint+"";
+                String[] token=item.split("/");
+                token[0]=token[0].replaceAll("\\[","");
+                token[1]=token[1].replaceAll("\\]","");
+                token[0]=token[0].substring(0, token[0].length() - 2);
+                double thing=Double.parseDouble(token[1]);
+                thing=thing*100;
+                int percent=(int) thing;
+                if(token[0].equals("1")){
+                    Toast.makeText(getBaseContext(), String.valueOf(percent) + "%" + " chance of " + token[0] + " explode result!", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getBaseContext(), String.valueOf(percent) + "%" + " chance of " + token[0] + " explode results!", Toast.LENGTH_LONG).show();
+                }            }
+        });
     }
 
     private String valuesForCalc(){
@@ -130,16 +189,19 @@ public class GraphVeh extends AppCompatActivity {
 
     private double getSingleChance(){
         Calculations calc=new Calculations();
-        return calc.calcExpHull(BS, str, 1, armV, is, rending, melta, twin_linked, Pref_Enemy, ordinance);
+        return calc.calcExpHull(BS, str, 1, armV, is, melta, twin_linked, rending, Pref_Enemy, ordinance);
     }
-
+    private double getSingleExplodeChance(){
+        Calculations calc=new Calculations();
+        return calc.calcExpExp(BS, str, ap, 1, armV, is, melta, twin_linked, rending, Pref_Enemy, ordinance);
+    }
     private int getROF(){
         String[] tokens=valuesForCalc().split(" ");
         return Integer.parseInt(tokens[3]);
     }
 
-    private double getChanceofOccurance(int n, int k){
-        double probs = power(getSingleChance(),k)*power((1-getSingleChance()),(n-k));
+    private double getChanceofOccurance(int n, int k, double singleChance){
+        double probs = power(singleChance,k)*power((1-singleChance),(n-k));
         BigDecimal thing = BigDecimal.valueOf(probs);
         BigDecimal thing2=new BigDecimal(combinations(n,k));
         thing=thing.multiply(thing2);

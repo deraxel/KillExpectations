@@ -844,24 +844,31 @@ public class KillVehicle extends AppCompatActivity {
     }
 
     public void gotoGraph(View view){
-        if (Integer.parseInt(rof.getText().toString())!=0) {
+        if (Integer.parseInt(rof.getText().toString())!=0 && Integer.parseInt(rof.getText().toString())<=200) {
             Intent goGraph = new Intent(getApplicationContext(), GraphVeh.class);
             goGraph.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             try {//this creates a save file for all the settings the user has set
                 FileOutputStream fileout;
                 fileout = openFileOutput("gotoGraph.txt", MODE_PRIVATE);
                 OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
-                outputWriter.write(BS.getSelectedItem().toString() + " " + str.getSelectedItem().toString() + " " + ap.getSelectedItem().toString() + " " +
-                        rof.getText().toString() + " " + rending.isChecked() + " " + melta.isChecked() + " " + twin_linked.isChecked() + " " +
-                        Pref_Enemy.isChecked() + " " + ordinance.isChecked() + " " + armV.getSelectedItem().toString() + " " +
-                        is.getSelectedItem().toString());
+                outputWriter.write(BS.getSelectedItem().toString() + " " +                          //0
+                        str.getSelectedItem().toString() + " " +                                    //1
+                        ap.getSelectedItem().toString() + " " +                                     //2
+                        rof.getText().toString() + " " +                                            //3
+                        rending.isChecked() + " " +                                                 //4
+                        melta.isChecked() + " " +                                                   //5
+                        twin_linked.isChecked() + " " +                                             //6
+                        Pref_Enemy.isChecked() + " " +                                              //7
+                        ordinance.isChecked() + " " +                                               //8
+                        armV.getSelectedItem().toString() + " " +                                   //9
+                        is.getSelectedItem().toString());                                           //10
                 outputWriter.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             startActivity(goGraph);
         }else{
-            Toast.makeText(getBaseContext(),"Number of shots must be greater than 0",Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(),"Number of shots must be greater than 0 and 200 or less",Toast.LENGTH_LONG).show();
         }
     }
 

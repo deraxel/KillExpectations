@@ -894,10 +894,19 @@ public class KillTroops extends AppCompatActivity {
                 FileOutputStream fileout;
                 fileout = openFileOutput("gotoGraph.txt", MODE_PRIVATE);
                 OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
-                outputWriter.write(BS.getSelectedItem().toString() + " " + str.getSelectedItem().toString() + " " + ap.getSelectedItem().toString() + " " +
-                        rof.getText().toString() + " " + String.valueOf(rending.isChecked()) + " " + String.valueOf(Shred.isChecked()) + " " + String.valueOf(twin_linked.isChecked()) + " " +
-                        String.valueOf(Pref_Enemy.isChecked()) + " " + String.valueOf(instaDeath.isChecked()) + " " + tgh.getSelectedItem().toString() + " " +
-                        as.getSelectedItem().toString() + " " + is.getSelectedItem().toString() + " " + fnp.getSelectedItem().toString());
+                outputWriter.write(BS.getSelectedItem().toString() + " " +                          //0
+                        str.getSelectedItem().toString() + " " +                                    //1
+                        ap.getSelectedItem().toString() + " " +                                     //2
+                        rof.getText().toString() + " " +                                            //3
+                        String.valueOf(rending.isChecked()) + " " +                                 //4
+                        String.valueOf(Shred.isChecked()) + " " +                                   //5
+                        String.valueOf(twin_linked.isChecked()) + " " +                             //6
+                        String.valueOf(Pref_Enemy.isChecked()) + " " +                              //7
+                        String.valueOf(instaDeath.isChecked()) + " " +                              //8
+                        tgh.getSelectedItem().toString() + " " +                                    //9
+                        as.getSelectedItem().toString() + " " +                                     //10
+                        is.getSelectedItem().toString() + " " +
+                        fnp.getSelectedItem().toString());
                 outputWriter.close();
             } catch (Exception e) {
                 e.printStackTrace();
